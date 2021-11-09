@@ -10,7 +10,7 @@ fetch(allProductsURL)
         res.forEach((el) => {
 
             const itemLink = document.createElement('a');
-            itemLink.href = `./front/html/product.html?id=${el.id}`
+            itemLink.href = `./front/html/product.html?id=${el._id}`
             itemLink.innerHTML = `<article>
                     <img src= ${el.imageUrl} alt =${el.altTxt}>
                     <h3 class="productName"> ${el.name} </h3> 
@@ -24,6 +24,6 @@ fetch(allProductsURL)
 
 //recuperer l'id du produit via l'url//
 function getArticleId() {
-    return new URL.searchParams.get("items");
+    return new URL.searchParams.get("id");
 }
 const id = getArticleId()
