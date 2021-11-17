@@ -1,20 +1,20 @@
-//affichage des produitds sur la page d'accueuil//
+//recuperer l'id du produit via l'url//
+function getArticleId() {
+    // On obtient les paramètres de recherche dans l'url (relire la documentation mdn si nécessaire)
+    let searchParams = new URLSearchParams(window.location.search);
 
-const allProductsURL = "http://localhost:3000/api/products";
+    // On récupère l'id qui est dans les paramètres grâce à la méthode .get
+    const id = searchParams.get("id");
 
-fetch(allProductsURL)
-    .then((res) => res.json())
-    .then((res) => {
-        const itemsSection = document.querySelector("#items");
-        res.forEach((el) => {
-            const itemLink = document.createElement("a");
-            itemLink.href = `./product.html?id=${el._id}`
-            itemLink.innerHTML = ` < article >
-                <img src= ${el.imageUrl} alt=${ el.altTxt } >
-                <h3 class= "productName">${el.name} </h3> 
-                <p class= "productDescription">${el.description} </p>
-                </article>`;
-            itemsSection.appendChild(itemLink);
-            return itemLink;
+    // On construit l'URL qui permet de voir les détails d'un produit dans le backend grâce à l'id récupéré
+    const productUrl = "http://localhost:3000/api/products/${id}";
+
+    // On utilise la dite URL pour fetch depuis le backend les détails d'un produit, ensuite on peut l'implémenter
+    fetch(productUrl)
+        .then((res) => res.json())
+        .then((product) => {
+            // TODO implement product with its data
         });
-    });
+}
+
+getArticleId();
