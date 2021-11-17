@@ -18,5 +18,3 @@ function getArticleId() {
 
         });
 }
-
-getArticleId();

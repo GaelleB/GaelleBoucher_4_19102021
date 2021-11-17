@@ -1,4 +1,4 @@
-//affichage des produitds sur la page d'accueuil//
+//affichage des produits sur la page d'accueuil//
 
 const allProductsURL = "http://localhost:3000/api/products";
 
