@@ -12,7 +12,7 @@ fetch(allProductsURL)
             itemLink.innerHTML = ` <article>
                             <img src = ${el.imageUrl} alt = ${el.altTxt}>
                             <h3 class = "productName"> ${el.name} </h3> 
-                            <p class ="productDescription"> ${el.description} </p> 
+                            <p class = "productDescription"> ${el.description} </p> 
                             </article> `;
             itemsSection.appendChild(itemLink);
             return itemLink;
