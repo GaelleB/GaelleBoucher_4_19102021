@@ -14,6 +14,8 @@ function getArticleId() {
         .then((res) => res.json())
         .then((product) => {
             // TODO implement product with its data
+            let searchParams = new URLSearchParams()
+
         });
 }
 
