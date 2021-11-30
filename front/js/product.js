@@ -13,8 +13,7 @@ function getArticleId() {
     fetch(productUrl)
         .then((res) => res.json())
         .then((product) => {
-            // Implémenter les détails des produits sur la page produits
-            let searchParams = new URLSearchParams()
-
+            // Extraire les détails l'ID des produits sur la page produits
+            const itemsSection = document.querySelector(".items");
         });
 }
