@@ -16,7 +16,7 @@ function getArticleId() {
         .then((product) => {
             let affichage = `<img src="${product.imageUrl}"/>`
             console.log(product.imageUrl)
-            const itemSection = document.getElementById("iteming");
+            const itemSection = document.getElementById("item__img");
             itemSection.innerHTML = affichage
         });
     // Extraire les détails l'ID des produits sur la page produits
