@@ -2,23 +2,17 @@
 function getArticleId() {
     console.log("exécution de la fonction")
         // On obtient les paramètres de recherche dans l'url 
-    let searchParams = new URLSearchParams(window.location.search);
+    return new URLSearchParams(window.location.search).get("id");
 
-    // On récupère l'id qui est dans les paramètres grâce à la méthode .get
-    let id = searchParams.get("id");
-
-    // On construit l'URL qui permet de voir les détails d'un produit dans le backend grâce à l'id récupéré
-    const productUrl = `http: //localhost:3000/api/products/${id}`;
-
-    // On utilise la dite URL pour fetch depuis le backend les détails d'un produit
-    fetch(productUrl)
-        .then((res) => res.json())
-        .then((product) => {
-            let affichage = `<img src="${product.imageUrl}"/>`
-            console.log(product.imageUrl)
-            const itemSection = document.getElementById("item__img");
-            itemSection.innerHTML = affichage
-        });
-    // Extraire les détails l'ID des produits sur la page produits
 }
-getArticleId()
+const id = getArticleId()
+
+const productUrl = `http://localhost:3000/api/products/${id}`;
+
+fetch(productUrl)
+    .then((res) => res.json())
+    .then((product) => {
+        let img = `<img src="${product.imageUrl}"/>`
+        const image = document.getElementById("itemImg");
+        image.innerHTML = img
+    });
