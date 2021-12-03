@@ -5,8 +5,10 @@ const allProductsURL = "http://localhost:3000/api/products";
 fetch(allProductsURL)
     .then((res) => res.json())
     .then((res) => {
+        console.log(res)
         const itemsSection = document.querySelector("#items");
         res.forEach((el) => {
+            console.log(el._id)
             const itemLink = document.createElement("a");
             itemLink.href = `./product.html?id=${el._id}`;
             itemLink.innerHTML = ` <article>
