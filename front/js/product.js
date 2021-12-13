@@ -1,4 +1,4 @@
-//recuperer l'id du produit via l'url//
+// Récuperer l'id du produit via l'url
 function getArticleId() {
     console.log("exécution de la fonction")
         // On obtient les paramètres de recherche dans l'url 
@@ -31,4 +31,12 @@ fetch(productUrl)
         let descrip = `${product.description}`
         const description = document.getElementById("description");
         description.innerHTML = descrip
-    });
+
+        // Affichage des couleurs disponibles du produit
+        console.log(product.colors)
+        let select = document.getElementById("colors");
+        console.log(select)
+        product.colors.forEach(color => {
+            select.innerHTML += `<option value=${color}>${color}</option>`;
+        });
+    })
