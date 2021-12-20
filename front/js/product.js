@@ -40,3 +40,88 @@ fetch(productUrl)
             select.innerHTML += `<option value=${color}>${color}</option>`;
         });
     })
+
+                    //Gestion du panier
+
+// *** Création du produit
+let creationProduit = () => {
+	let quantite = document.querySelector('#quantity')
+
+	let optionProduct = {
+		_id: productUrl,
+		quantity: quantite,
+		colors: colors,
+	}
+
+	// Mettre l'objet dans le localstorage
+	let sauvegardeProduitLocalStorage = JSON.parse(localStorage.getItem('product'))
+
+	// *** Ajoute un produit sélectionné dans le localStorage
+	let ajoutProduitLocalStorage = () => {
+		sauvegardeProduitLocalStorage.push(optionProduct)
+		localStorage.setItem('product', JSON.stringify(sauvegardeProduitLocalStorage))
+	}
+
+	// *** Modifie un produit sélectionné dans le localStorage
+	let modifyProductLocalStorage = (index) => {
+		sauvegardeProduitLocalStorage[index].quantity = optionProduct.qty
+		localStorage.setItem('product', JSON.stringify(sauvegardeProduitLocalStorage))
+		console.log('Modifie la quantité')
+	}
+
+	// SI la couleur est non renseignée ou que la quantité est inférieur ou égale à 0 ou supérieure à 100 : ne rien faire
+	if (
+		optionProduct.colors == '' ||
+		optionProduct.qty <= 0 ||
+		optionProduct.qty > 100
+	) {
+
+	} else {
+		// SI pas de produit dans le localStorage, crée le tableau et ajoute le produit
+		if (!sauvegardeProduitLocalStorage) {
+			sauvegardeProduitLocalStorage = []
+			ajoutProduitLocalStorage()
+			cart()
+		}
+		// Trouve l'index dans le localStorage qui a la même couleur & la même ID que la sélection actuelle
+		else {
+			let index = sauvegardeProduitLocalStorage.findIndex(
+				(e) => e.colors === optionProduct.colors && e._id === optionProduct._id
+			)
+			// SI le produit existe déjà, modifie la quantité
+			if (index !== -1) {
+				modifyProductLocalStorage(index)
+				cart()
+			}
+			// SINON ajoute le produit
+			else {
+				ajoutProduitLocalStorage()
+				console.log('Ajoute le produit')
+				cart()
+			}
+		}
+	}
+}
+
+let envoiePanier = document.querySelector('#addToCart')
+envoiePanier.addEventListener('click', (event) => {
+	creationProduit()
+})
+
+// Rajouter la quantité totale à côté du panier (nav bar)
+let cart = () => {
+	let panier = document
+		.getElementsByTagName('nav')[0]
+		.getElementsByTagName('li')[1]
+	let saveProductLocalStorage = JSON.parse(localStorage.getItem('product'))
+	let sum = 0
+
+	for (let q in saveProductLocalStorage) {
+		let loop = parseInt(saveProductLocalStorage[q].qty)
+		sum += loop
+	}
+
+	panier.innerHTML = `Panier <span id="test" style='color: red;'>${sum}</span>`
+}
+
+cart()
