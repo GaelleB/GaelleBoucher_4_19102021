@@ -43,7 +43,7 @@ fetch(productUrl)
 
                     //Gestion du panier
 
-// *** Création du produit
+// Création du produit
 let creationProduit = () => {
 	let quantite = document.querySelector('#quantity')
 
@@ -56,14 +56,14 @@ let creationProduit = () => {
 	// Mettre l'objet dans le localstorage
 	let sauvegardeProduitLocalStorage = JSON.parse(localStorage.getItem('product'))
 
-	// *** Ajoute un produit sélectionné dans le localStorage
+	// Ajoute un produit sélectionné dans le localStorage
 	let ajoutProduitLocalStorage = () => {
 		sauvegardeProduitLocalStorage.push(optionProduct)
 		localStorage.setItem('product', JSON.stringify(sauvegardeProduitLocalStorage))
 	}
 
-	// *** Modifie un produit sélectionné dans le localStorage
-	let modifyProductLocalStorage = (index) => {
+	// Modifie un produit sélectionné dans le localStorage
+	let modifProductLocalStorage = (index) => {
 		sauvegardeProduitLocalStorage[index].quantity = optionProduct.qty
 		localStorage.setItem('product', JSON.stringify(sauvegardeProduitLocalStorage))
 		console.log('Modifie la quantité')
@@ -90,13 +90,13 @@ let creationProduit = () => {
 			)
 			// SI le produit existe déjà, modifie la quantité
 			if (index !== -1) {
-				modifyProductLocalStorage(index)
+				modifProductLocalStorage(index)
 				cart()
 			}
 			// SINON ajoute le produit
 			else {
 				ajoutProduitLocalStorage()
-				console.log('Ajoute le produit')
+				console.log('Ajouter le produit')
 				cart()
 			}
 		}
@@ -113,11 +113,12 @@ let cart = () => {
 	let panier = document
 		.getElementsByTagName('nav')[0]
 		.getElementsByTagName('li')[1]
-	let saveProductLocalStorage = JSON.parse(localStorage.getItem('product'))
+	let sauvegardeProduitLocalStorage = [] = JSON.parse(localStorage.getItem('product'))
 	let sum = 0
 
-	for (let q in saveProductLocalStorage) {
-		let loop = parseInt(saveProductLocalStorage[q].qty)
+	for (let q in sauvegardeProduitLocalStorage = []) {
+		let loop = parseInt(sauvegardeProduitLocalStorage = []
+			[q].qty)
 		sum += loop
 	}
 
