@@ -46,11 +46,12 @@ fetch(productUrl)
 // Création du produit
 let creationProduit = () => {
 	let quantite = document.querySelector('#quantity')
+	console.log(quantite)
 
 	let optionProduct = {
 		_id: productUrl,
-		quantity: quantite,
-		colors: colors,
+		quantity: quantite.value,
+		colors: colors.value,
 	}
 
 	// Mettre l'objet dans le localstorage
