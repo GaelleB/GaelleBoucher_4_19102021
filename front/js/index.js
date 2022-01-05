@@ -1,4 +1,4 @@
-//affichage des produits sur la page d'accueuil//
+// Insérer les produits dans la page d’accueil
 
 const allProductsURL = "http://localhost:3000/api/products";
 

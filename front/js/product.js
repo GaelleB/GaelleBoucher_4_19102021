@@ -67,7 +67,6 @@ let creationProduit = () => {
 	let modifProductLocalStorage = (index) => {
 		sauvegardeProduitLocalStorage[index].quantity = optionProduct.qty
 		localStorage.setItem('product', JSON.stringify(sauvegardeProduitLocalStorage))
-		console.log('Modifie la quantité')
 	}
 
 	// SI la couleur est non renseignée ou que la quantité est inférieur ou égale à 0 ou supérieure à 100 : ne rien faire
@@ -125,5 +124,3 @@ let cart = () => {
 
 	panier.innerHTML = `Panier <span id="test" style='color: red;'>${sum}</span>`
 }
-
-cart()
