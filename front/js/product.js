@@ -42,7 +42,6 @@ fetch(productUrl)
 
                     //Gestion du panier
 
-// Création du produit
 let creationProduit = () => {
 	let quantite = document.querySelector('#quantity')
 	console.log(quantite)
@@ -53,7 +52,7 @@ let creationProduit = () => {
 		colors: colors.value,
 	}
 
-	// Mettre l'objet dans le localstorage
+	// Mettre le produit dans le localstorage
 	let sauvegardeProduitLocalStorage = JSON.parse(localStorage.getItem('product'))
 
 	// Ajoute un produit sélectionné dans le localStorage
@@ -64,18 +63,10 @@ let creationProduit = () => {
 
 	// Modifie un produit sélectionné dans le localStorage
 	let modifProductLocalStorage = (index) => {
-		sauvegardeProduitLocalStorage[index].quantity = optionProduct.qty
+		sauvegardeProduitLocalStorage[index].quantity = optionProduct.quantity
 		localStorage.setItem('product', JSON.stringify(sauvegardeProduitLocalStorage))
 	}
 
-	// SI la couleur est non renseignée ou que la quantité est inférieur ou égale à 0 ou supérieure à 100 : ne rien faire
-	if (
-		optionProduct.colors == '' ||
-		optionProduct.qty <= 0 ||
-		optionProduct.qty > 100
-	) {
-
-	} else {
 		// SI pas de produit dans le localStorage, crée le tableau et ajoute le produit
 		if (!sauvegardeProduitLocalStorage) {
 			sauvegardeProduitLocalStorage = []
@@ -99,7 +90,6 @@ let creationProduit = () => {
 				cart()
 			}
 		}
-	}
 }
 
 let envoiePanier = document.querySelector('#addToCart')
@@ -107,19 +97,19 @@ envoiePanier.addEventListener('click', (event) => {
 	creationProduit()
 })
 
-// Rajouter la quantité totale à côté du panier (nav bar)
+// Rajouter la quantité totale à côté du panier (nav)
 let cart = () => {
 	let panier = document
 		.getElementsByTagName('nav')[0]
 		.getElementsByTagName('li')[1]
 	let sauvegardeProduitLocalStorage = [] = JSON.parse(localStorage.getItem('product'))
-	let sum = 0
+	let somme = 0
 
 	for (let q in sauvegardeProduitLocalStorage = []) {
 		let loop = parseInt(sauvegardeProduitLocalStorage = []
-			[q].qty)
-		sum += loop
+			[q].quantity)
+		somme += loop
 	}
 
-	panier.innerHTML = `Panier <span id="test" style='color: red;'>${sum}</span>`
+	panier.innerHTML = `Panier <span id="test" style='color: red;'>${somme}</span>`
 }

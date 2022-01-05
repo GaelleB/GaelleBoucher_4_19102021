@@ -1,7 +1,5 @@
 // Insérer les produits dans la page d’accueil
-
 const allProductsURL = "http://localhost:3000/api/products";
-
 fetch(allProductsURL)
     .then((res) => res.json())
     .then((res) => {
