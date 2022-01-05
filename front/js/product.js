@@ -1,14 +1,13 @@
-// Récuperer l'id du produit via l'url
+// Faire le lien entre un produit de la page d’accueil et la page Produit
 function getArticleId() {
     console.log("exécution de la fonction")
-        // On obtient les paramètres de recherche dans l'url 
+	// Récupérer l’id du produit à afficher
     return new URLSearchParams(window.location.search).get("id");
-
 }
 const id = getArticleId()
 
+// Insérer un produit et ses détails dans la page Produit
 const productUrl = `http://localhost:3000/api/products/${id}`;
-
 fetch(productUrl)
     .then((res) => res.json())
     .then((product) => {
