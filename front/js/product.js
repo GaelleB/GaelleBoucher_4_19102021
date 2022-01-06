@@ -11,8 +11,9 @@ const productUrl = `http://localhost:3000/api/products/${id}`;
 fetch(productUrl)
     .then((res) => res.json())
     .then((product) => {
+		console.log(product)
         // Affichage de l'image du produit
-        let img = `<img src="${product.imageUrl}"/>`
+        let img = `<img src="${product.imageUrl}" alt="${product.altTxt}"/>`
         const image = document.getElementById("itemImg");
         image.innerHTML = img
 
@@ -45,11 +46,18 @@ fetch(productUrl)
 let creationProduit = () => {
 	let quantite = document.querySelector('#quantity')
 	console.log(quantite)
+	let name = document.querySelector("#title").innerText
+	let prix = document.querySelector("#price").innerText
+	let image = document.querySelector("#itemImg img")
 
 	let optionProduct = {
-		_id: productUrl,
-		quantity: quantite.value,
+		_id: id,
+		quantity: Number(quantite.value),
 		colors: colors.value,
+		nom: name,
+		prix: Number(prix),
+		img: image.src,
+		alt: image.alt
 	}
 
 	// Mettre le produit dans le localstorage
