@@ -7,7 +7,6 @@ function affichagePanier() {
     let sauvegardeProduitLocalStorage = [] = JSON.parse(localStorage.getItem('product'))
     if (sauvegardeProduitLocalStorage === null) {
         return [];
-        
     } else {
         for (let i = 0; i > sauvegardeProduitLocalStorage.length; i++) {
             console.log(sauvegardeProduitLocalStorage[i].length);
