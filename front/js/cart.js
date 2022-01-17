@@ -103,8 +103,6 @@
     }
     calculTotal()
 
-
-    
     // Quantité totale à côté du panier (navbar)
     let cart = () => {
         let panier = document
