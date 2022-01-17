@@ -85,4 +85,39 @@
     }
     suppProduit()
 
+    function calculTotal () {
+        let product = panier()
+        let total = 0
+        let totalQuantity = document.querySelector("#totalQuantity");
+        let totalPrice = document.querySelector("#totalPrice");
+        for (let i = 0; i < product.length; i++) {
+            console.log (product[i].prix)
+            console.log (product[i].quantity)
+            let prix = product[i].prix
+            let quantite = product[i].quantity
+            total += prix * quantite
+            totalQuantity.innerHTML = product
+            totalPrice.innerHTML = total
+        }
+        console.log(total)
+    }
+    calculTotal()
+
+
     
+    // Quantité totale à côté du panier (navbar)
+    let cart = () => {
+        let panier = document
+            .getElementsByTagName('nav')[0]
+            .getElementsByTagName('li')[1]
+        let sauvegardeProduitLocalStorage = [] = JSON.parse(localStorage.getItem('product'))
+        let somme = 0
+    
+        for (let q in sauvegardeProduitLocalStorage = []) {
+            let quantiteBoucle = parseInt(sauvegardeProduitLocalStorage = []
+                [q].quantity)
+            somme += quantiteBoucle
+        }
+
+        panier.innerHTML = `Panier <span id="test" style='color: red;'>${somme}</span>`
+    }
