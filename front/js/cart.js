@@ -46,4 +46,43 @@
     }
     affichagePanier();
 
+    // Gérer la modification et la suppression de produits dans la page Panier
+    // Modification de la quantité d'un produit
+    let modifProduit = () => {
+        let itemQuantity = [...document.getElementsByClassName('itemQuantity'),
+        ]
+        itemQuantity.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                sauvegardeProduitLocalStorage[index].quantity = itemQuantity[index].value
+                localStorage.setItem('product',JSON.stringify(sauvegardeProduitLocalStorage)
+                )
+                panier()
+            })
+        })
+    }
+    modifProduit()
+
+    // Suppression d'un produit
+    let suppProduit = () => {
+        let deleteItem = [...document.getElementsByClassName('deleteItem'),
+        ]
+        let articleChoisi = [...document.querySelectorAll(`.cart__item`)]
+        deleteItem.forEach((element, index) => {
+        element.addEventListener('click', () => {
+            sauvegardeProduitLocalStorage.splice(index, 1)
+            localStorage.setItem('product',JSON.stringify(sauvegardeProduitLocalStorage)
+            )
+            articleChoisi[index].remove()
+            panier()
+            calcul();
+        })
+        })
+        if (document.URL.includes('cart.html')) {
+            if (!sauvegardeProduitLocalStorage[0]) {
+                localStorage.removeItem('product')
+            }
+        }
+    }
+    suppProduit()
+
     
