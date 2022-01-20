@@ -76,7 +76,6 @@ let creationProduit = () => {
 		if (!sauvegardeProduitLocalStorage) {
 			sauvegardeProduitLocalStorage = []
 			ajoutProduitLocalStorage()
-			cart()
 		}
 				else {
 			let index = sauvegardeProduitLocalStorage.findIndex(
@@ -85,12 +84,10 @@ let creationProduit = () => {
 			// Si le produit existe déjà, on incrémente la quantité correspondant dans l'array
 			if (index !== -1) {
 				modifProductLocalStorage(index)
-				cart()
 			}
 			// Sinon on ajoute le produit
 			else {
 				ajoutProduitLocalStorage()
-				cart()
 			}
 		}
 }
@@ -99,20 +96,3 @@ let envoiePanier = document.querySelector('#addToCart')
 envoiePanier.addEventListener('click', (event) => {
 	creationProduit()
 })
-
-// Quantité totale à côté du panier (navbar)
-let cart = () => {
-	let panier = document
-		.getElementsByTagName('nav')[0]
-		.getElementsByTagName('li')[1]
-	let sauvegardeProduitLocalStorage = [] = JSON.parse(localStorage.getItem('product'))
-	let somme = 0
-
-	for (let q in sauvegardeProduitLocalStorage = []) {
-		let quantiteBoucle = parseInt(sauvegardeProduitLocalStorage = []
-			[q].quantity)
-		somme += quantiteBoucle
-	}
-
-	panier.innerHTML = `Panier <span id="test" style='color: red;'>${somme}</span>`
-}

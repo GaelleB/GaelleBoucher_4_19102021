@@ -57,6 +57,7 @@
                 localStorage.setItem('product',JSON.stringify(sauvegardeProduitLocalStorage)
                 )
                 panier()
+				calculTotal();
             })
         })
     }
@@ -69,12 +70,17 @@
         let articleChoisi = [...document.querySelectorAll(`.cart__item`)]
         deleteItem.forEach((element, index) => {
         element.addEventListener('click', () => {
+			let id = articleChoisi[index].dataset.id
+			console.log(id)
+			let color = articleChoisi[index].dataset.color
+			console.log(color)
+
+
             sauvegardeProduitLocalStorage.splice(index, 1)
-            localStorage.setItem('product',JSON.stringify(sauvegardeProduitLocalStorage)
-            )
+            localStorage.setItem('product',JSON.stringify(sauvegardeProduitLocalStorage))
             articleChoisi[index].remove()
             panier()
-            calcul();
+            calculTotal();
         })
         })
         if (document.URL.includes('cart.html')) {
@@ -88,34 +94,207 @@
     function calculTotal () {
         let product = panier()
         let total = 0
+		let quantite = 0
         let totalQuantity = document.querySelector("#totalQuantity");
         let totalPrice = document.querySelector("#totalPrice");
         for (let i = 0; i < product.length; i++) {
             console.log (product[i].prix)
             console.log (product[i].quantity)
-            let prix = product[i].prix
-            let quantite = product[i].quantity
-            total += prix * quantite
-            totalQuantity.innerHTML = product
+            let prix = Number(product[i].prix)
+			quantite += Number(product[i].quantity)
+            total += (prix * quantite)
+            totalQuantity.innerText = quantite
             totalPrice.innerHTML = total
         }
-        console.log(total)
-    }
-    calculTotal()
 
-    // Quantité totale à côté du panier (navbar)
-    let cart = () => {
-        let panier = document
-            .getElementsByTagName('nav')[0]
-            .getElementsByTagName('li')[1]
-        let sauvegardeProduitLocalStorage = [] = JSON.parse(localStorage.getItem('product'))
-        let somme = 0
-    
-        for (let q in sauvegardeProduitLocalStorage = []) {
-            let quantiteBoucle = parseInt(sauvegardeProduitLocalStorage = []
-                [q].quantity)
-            somme += quantiteBoucle
-        }
+		// Quantité totale à côté du panier (navbar)
+		let cart = () => {
+			let panier = document
+				.getElementsByTagName('nav')[0]
+				.getElementsByTagName('li')[1]
+			let sauvegardeProduitLocalStorage = JSON.parse(localStorage.getItem('product'))
+			console.log("affichage "+ sauvegardeProduitLocalStorage)
+			let somme = 0
+			for (let produit of sauvegardeProduitLocalStorage) {
+				somme += parseInt(produit.quantity) * produit.prix
+			}
+			panier.innerHTML = `Panier <span id="test" style='color: red;'>${somme}</span>`
+		}
+		cart ()
 
-        panier.innerHTML = `Panier <span id="test" style='color: red;'>${somme}</span>`
-    }
+		// Passer la commande (avec le formulaire)
+			addEventListener('change', () => {
+			function firstName() {
+				let firstName = document.getElementById('firstName').value
+				let text = document.getElementById('firstNameErrorMsg')
+				let regEx1 = /^[a-zA-Z\-]+$/
+				let number = /^[a-zA-Z\-1-9]+$/
+
+				if (firstName.match(regEx1)) {
+					text.innerHTML = 'Prénom valide'
+					return firstName
+				} else {
+					if (firstName.match(number)) {
+						text.innerHTML = 'Les chiffres ne sont pas tolérés'
+					} else {
+						text.innerHTML = 'Merci de rentrer un prénom valide'
+					}
+				}
+				if (firstName == '') {
+					text.innerHTML = ''
+				}
+			}
+            firstName()
+
+			function lastName() {
+				let lastName = document.getElementById('lastName').value
+				let text = document.getElementById('lastNameErrorMsg')
+				let regEx2 = /^\s*[a-zA-Zéèàê]+\s*$/
+				let number = /^[a-zA-Z\-1-9]+$/
+
+				if (lastName.match(regEx2)) {
+					text.innerHTML = 'Nom valide'
+					return lastName
+				} else {
+					if (lastName.match(number)) {
+						text.innerHTML = 'Les chiffres ne sont pas tolérés'
+					} else {
+						text.innerHTML = 'Merci de rentrer un nom valide'
+					}
+				}
+				if (lastName == '') {
+					text.innerHTML = ''
+				}
+			}
+            lastName()
+
+			function adress() {
+				let address = document.getElementById('address').value
+				let text = document.getElementById('addressErrorMsg')
+				let regEx3 = '([0-9a-zA-Z,. ]*) ?([0-9]{5}) ?([a-zA-Z]*)'
+
+				if (address.match(regEx3)) {
+					text.innerHTML = 'Adresse postale valide'
+					return address
+				} else {
+					text.innerHTML =
+						'Merci de rentrer une adresse valide : numéro voie code postal'
+				}
+				if (address == '') {
+					text.innerHTML = ''
+				}
+			}
+            adress()
+
+			function city() {
+				let city = document.getElementById('city').value
+				let text = document.getElementById('cityErrorMsg')
+				let regEx4 = /^[a-z ,.'-]+$/i
+
+				if (city.match(regEx4)) {
+					text.innerHTML = 'Ville valide'
+					return city
+				} else {
+					text.innerHTML = 'Merci de rentrer une ville valide'
+				}
+				if (city == '') {
+					text.innerHTML = ''
+				}
+			}
+            city()
+
+			function mail() {
+				let mail = document.getElementById('email').value
+				let text = document.getElementById('emailErrorMsg')
+				let regEx5 = new RegExp(
+					'^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$',
+					'g'
+				)
+
+				if (mail.match(regEx5)) {
+					text.innerHTML = 'Adresse email valide'
+					return mail
+				} else {
+					text.innerHTML = 'Merci de rentrer une adresse valide'
+				}
+				if (mail == '') {
+					text.innerHTML = ''
+				}
+			}
+            mail()
+
+			// Objet vers localStorage
+			let sendContact = document.querySelector('#order')
+			sendContact.addEventListener('click', (e) => {
+				e.preventDefault()
+
+				// Création de l'objet contact | Les valeurs sont vérifiés par les fonctions
+				let contact = {
+					firstName: firstName(),
+					lastName: lastName(),
+					address: adress(),
+					city: city(),
+					email: mail(),
+				}
+
+				// Ajoute le nouveau contact
+				let ajoutContactLocalStorage = () => {
+					sauvegardeContactLocalStorage = []
+					sauvegardeContactLocalStorage.push(contact)
+					localStorage.setItem(
+						'contact',
+						JSON.stringify(sauvegardeContactLocalStorage)
+					)
+				}
+
+				// Modifie le contact
+				let modifContactLocalStorage = () => {
+					sauvegardeContactLocalStorage = contact
+					localStorage.setItem(
+						'contact',
+						JSON.stringify(sauvegardeContactLocalStorage)
+					)
+				}
+				
+				// Si l'objet a une key non défini, ne pas exécuter le code
+				if (
+					contact.firstName == undefined ||
+					contact.lastName == undefined ||
+					contact.address == undefined ||
+					contact.city == undefined ||
+					contact.email == undefined
+				) {
+					return false
+				} else {
+					// SI pas de contact dans le localStorage, crée le tableau
+					if (!sauvegardeContactLocalStorage) {
+						ajoutContactLocalStorage()
+					}
+					// Modifie le contact en temps réel
+					else {
+						modifContactLocalStorage()
+					}
+				}
+				
+				fetch ('http://localhost:3000/api/products/order', {
+					method: 'POST',
+					body: JSON.stringify({contact, product}),
+					headers: {
+						'Content-type': 'application/json',
+					},
+				})
+				
+			}
+		)}
+	)}
+	calculTotal()
+
+// Afficher le numéro de commande
+let afficheCommande = () => {
+	let orderId = new URL(window.location.href).searchParams.get('id')
+	let order = document.querySelector('#orderId')
+	if (document.URL.includes('confirmation.html')) {
+		order.innerHTML = orderId
+	}
+}
+afficheCommande()
