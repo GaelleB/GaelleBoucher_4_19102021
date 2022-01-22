@@ -43,7 +43,6 @@ fetch(productUrl)
 // Ajouter des produits dans le panier
 let creationProduit = () => {
 	let quantite = document.querySelector('#quantity')
-	console.log(quantite)
 	let name = document.querySelector("#title").innerText
 	let prix = document.querySelector("#price").innerText
 	let image = document.querySelector("#itemImg img")
@@ -71,8 +70,9 @@ let creationProduit = () => {
 	let modifProductLocalStorage = (index) => {
 		sauvegardeProduitLocalStorage[index].quantity = optionProduct.quantity
 		localStorage.setItem('product', JSON.stringify(sauvegardeProduitLocalStorage))
-		}
-		// Si le produit n'est pas présent dans le panier, ajoute le produit
+		console.log('Modification de la quantité')
+	}
+		// Si le produit n'est pas présent dans le panier, ajout dans le produit
 		if (!sauvegardeProduitLocalStorage) {
 			sauvegardeProduitLocalStorage = []
 			ajoutProduitLocalStorage()
@@ -88,6 +88,7 @@ let creationProduit = () => {
 			// Sinon on ajoute le produit
 			else {
 				ajoutProduitLocalStorage()
+				console.log('Produit ajouté au panier')
 			}
 		}
 }
