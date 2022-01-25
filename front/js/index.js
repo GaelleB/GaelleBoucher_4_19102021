@@ -23,6 +23,7 @@ fetch(allProductsURL)
             titre.classList.add("productName")
             para.classList.add("productDescription")
 
+            a.href = `./product.html?id=${el._id}`;
             img.alt = el.altTxt;
             img.src = el.imageUrl;
             titre.innerText = el.name;
