@@ -293,6 +293,9 @@ function calculTotal() {
 			.then(order => {
 				let orderId = order.orderId
 				window.location = `${window.location.origin}/front/html/confirmation.html?id=${orderId}`;
+				let ordre = `<span<!-- 65431343444684674 --></span>`
+				const image = document.getElementById("#orderId");
+				image.innerText = ordre;
 			});
 	});
 	})

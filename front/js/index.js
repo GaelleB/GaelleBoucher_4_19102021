@@ -12,14 +12,24 @@ fetch(allProductsURL)
         res.forEach((el) => {
             console.log(el._id)
             // Insersion de chaque produit dans la page d'accueil
-            const itemLink = document.createElement("a");
-            itemLink.href = `./product.html?id=${el._id}`;
-            itemLink.innerHTML = ` <article>
-                            <img src = ${el.imageUrl} alt = ${el.altTxt}>
-                            <h3 class = "productName"> ${el.name} </h3> 
-                            <p class = "productDescription"> ${el.description} </p> 
-                            </article> `;
-            itemsSection.appendChild(itemLink);
-            return itemLink;
+            const a = document.createElement("a");
+            const section = document.createElement("article");
+            const img = document.createElement("img");
+            const titre = document.createElement("h3");
+            const para = document.createElement("p");
+
+            section.classList.add("items");
+            img.classList.add("alt");
+            titre.classList.add("productName")
+            para.classList.add("productDescription")
+
+            img.alt = el.altTxt;
+            img.src = el.imageUrl;
+            titre.innerText = el.name;
+            para.innerText= el.description;
+            
+            itemsSection.appendChild(a)
+            a.appendChild(section);
+            section.append(img, titre, para);
         });
     });
