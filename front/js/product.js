@@ -88,7 +88,7 @@ let creationProduit = () => {
 			// Sinon on ajoute le produit
 			else {
 				ajoutProduitLocalStorage()
-				console.log('Produit ajouté au panier')
+				console.log('Produit ajouté au panier dans le local storage')
 			}
 		}
 }
@@ -96,4 +96,5 @@ let creationProduit = () => {
 let envoiePanier = document.querySelector('#addToCart')
 envoiePanier.addEventListener('click', (event) => {
 	creationProduit()
+	console.log("bouton Ajouter au panier")
 })

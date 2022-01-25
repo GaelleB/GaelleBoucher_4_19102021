@@ -15,6 +15,8 @@ function panier() {
 		return [];
 	}
 }
+panier();
+console.log("Affichage panier")
 
 // Affichage d'un tableau récapitulatif des achats dans la page Panier
 // Récupération l'array via le localStorage + création et insersion des éléments dans la page Panier
@@ -23,7 +25,7 @@ function affichagePanier() {
 	for (let i = 0; i < sauvegardeProduitLocalStorage.length; i++) {
 		cartItems.innerHTML += `<article class="cart__item" data-id="${sauvegardeProduitLocalStorage[i]._id}" data-color="${sauvegardeProduitLocalStorage[i].colors}">
                         <div class="cart__item__img">
-                            <img src="${sauvegardeProduitLocalStorage[i].img}" alt="${sauvegardeProduitLocalStorage[i].alt}" />
+                            <img src="${sauvegardeProduitLocalStorage[i].img}" alt="${sauvegardeProduitLocalStorage[i].alt}"/>
                             </div>
                             <div class="cart__item__content">
                             <div class="cart__item__content__description">
@@ -122,7 +124,7 @@ function calculTotal() {
 		function firstName() {
 			let firstName = document.getElementById('firstName').value;
 			let text = document.getElementById('firstNameErrorMsg');
-			let regEx1 = /^[a-zA-Z\-]+$/;
+			let regEx1 = /^[a-zA-Zéèàêë\-]+$/;
 			let number = /^[a-zA-Z\-1-9]+$/;
 
 			if (firstName.match(regEx1)) {
@@ -293,7 +295,6 @@ function calculTotal() {
 				window.location = `${window.location.origin}/front/html/confirmation.html?id=${orderId}`;
 			});
 	});
-})
+	})
 }
 calculTotal();
-
