@@ -36,7 +36,7 @@ fetch(productUrl)
 			const contentBtn = document.createElement("div");
 			const btn = document.createElement("button");
 
-			// Ajout de leur class (avec classList.add), d'un attribut ou de texte
+			// Ajout de leur class (avec classList.add), d'un texte (avec text.content ou innerText) ou d'un attribut (avec setAttribute)
 			divImage.classList.add("item__img");
 			img.classList.add("alt");
 			itemContent.classList.add("item__content");
@@ -61,7 +61,6 @@ fetch(productUrl)
 			optionColor.textContent = "--SVP, choisissez une couleur --" 
 			labelQuantity.textContent = "Nombre d'article(s) (1-100) :";
 			btn.textContent = "Ajouter au panier";
-
 			selectColor.setAttribute("name", "color-select")
 			optionColor.setAttribute("value", "");
 			itemQuantity.setAttribute("type", "number", "name", "min", "1", "max", "100", "value", "0");
