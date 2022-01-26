@@ -41,7 +41,7 @@ function affichagePanier() {
 		const settingDelete = document.createElement("div");
 		const suppr = document.createElement("p");
 
-		// Ajout de leur class (avec classList.add), d'un attribut ou de texte
+		// Ajout de leur class (avec classList.add), d'un texte (avec text.content ou innerText) ou d'un attribut (avec setAttribute)
 		sectionCart.classList.add("cart")
 		sectionCartItems.classList.add("cart__items");
 		art.classList.add("cart__item");
@@ -50,23 +50,21 @@ function affichagePanier() {
 		contentTitlePrice.classList.add("cart__item__content__titlePrice");
 		settingContent.classList.add("cart__item__content__settings");
 		settingQuantity.classList.add("cart__item__content__settings__quantity");
-
-		art.setAttribute("data-id", sauvegardeProduitLocalStorage[i]._id);
-		
-		image.src = sauvegardeProduitLocalStorage.imageUrl;
-		image.alt = sauvegardeProduitLocalStorage.altTxt;
-		
-		nom.textContent = sauvegardeProduitLocalStorage[i].nom;
-		prix.textContent = sauvegardeProduitLocalStorage[i].prix;
-		
-		quantity.textContent = "Qté : ";
 		itemQuantity.classList.add("itemQuantity");
-		itemQuantity.setAttribute("type", "number", "name", "itemQuantity", "min", "1", "max", "100", "value", sauvegardeProduitLocalStorage[i].quantite)
 		settingDelete.classList.add("cart__item__content__settings__delete");
 		suppr.classList.add("deleteItem")
-		suppr.textContent = "Supprimer"
 
-		// Apparition dans le DOM et affichage dans la page produit
+		image.src = sauvegardeProduitLocalStorage.imageUrl;
+		image.alt = sauvegardeProduitLocalStorage.altTxt;
+		nom.textContent = sauvegardeProduitLocalStorage[i].nom;
+		prix.textContent = sauvegardeProduitLocalStorage[i].prix;
+		quantity.textContent = "Qté : ";
+		suppr.textContent = "Supprimer"
+		
+		art.setAttribute("data-id", sauvegardeProduitLocalStorage[i]._id);
+		itemQuantity.setAttribute("type", "number", "name", "itemQuantity", "min", "1", "max", "100", "value", sauvegardeProduitLocalStorage[i].quantite)
+		
+		// Apparition dans le DOM et affichage dans la page panier
 		cart.appendChild(sectionCart);
 		sectionCart.appendChild(sectionCartItems);
 		sectionCartItems.appendChild(art);
