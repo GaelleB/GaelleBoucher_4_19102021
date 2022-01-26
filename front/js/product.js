@@ -42,7 +42,6 @@ fetch(productUrl)
 			img.src = product.imageUrl;
 			img.alt = product.altTxt;
 			itemContent.classList.add("item__content");
-			
 			contentTitlePrice.classList.add("item__content__titlePrice");
 			nom.innerText = product.name;
 			prix.textContent = "Prix : ", 
@@ -55,7 +54,8 @@ fetch(productUrl)
 			settingsColor.classList.add("item__content__settings__color");
 			labelColor.textContent = "Choisir une couleur :";
 			selectColor.innerText = product.colors;
-			optionColor.setAttribute("value", "");
+			selectColor.setAttribute("name", "color-select")
+			optionColor.setAttribute("value=", "");
 			optionColor.textContent = "SVP, choisissez une couleur " 
 			settingQuantity.classList.add("item__content__settings__quantity");
 			labelQuantity.textContent = "Nombre d'article(s) (1-100) :";
