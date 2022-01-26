@@ -23,6 +23,8 @@ function affichagePanier() {
 	let sauvegardeProduitLocalStorage = panier();
 	const cart = document.querySelector(".cart");
 	for (let i = 0; i < sauvegardeProduitLocalStorage.length; i++) {
+
+		// Constantes pour créer des éléments HTML avec la méthode "document.createElement"
 		const sectionCart = document.createElement("cart");
 		const sectionCartItems = document.createElement("section");
 		const art = document.createElement("article");
@@ -39,19 +41,24 @@ function affichagePanier() {
 		const settingDelete = document.createElement("div");
 		const suppr = document.createElement("p");
 
+		// Ajout de leur class (avec classList.add), d'un attribut ou de texte
 		sectionCart.classList.add("cart")
 		sectionCartItems.classList.add("cart__items");
 		art.classList.add("cart__item");
-		art.setAttribute("data-id", sauvegardeProduitLocalStorage[i]._id);
 		divImage.classList.add("cart__item__img");
-		image.src = sauvegardeProduitLocalStorage.imageUrl;
-		image.alt = sauvegardeProduitLocalStorage.altTxt;
 		itemContent.classList.add("cart__item__content");
 		contentTitlePrice.classList.add("cart__item__content__titlePrice");
-		nom.textContent = sauvegardeProduitLocalStorage[i].nom;
-		prix.textContent = sauvegardeProduitLocalStorage[i].prix;
 		settingContent.classList.add("cart__item__content__settings");
 		settingQuantity.classList.add("cart__item__content__settings__quantity");
+
+		art.setAttribute("data-id", sauvegardeProduitLocalStorage[i]._id);
+		
+		image.src = sauvegardeProduitLocalStorage.imageUrl;
+		image.alt = sauvegardeProduitLocalStorage.altTxt;
+		
+		nom.textContent = sauvegardeProduitLocalStorage[i].nom;
+		prix.textContent = sauvegardeProduitLocalStorage[i].prix;
+		
 		quantity.textContent = "Qté : ";
 		itemQuantity.classList.add("itemQuantity");
 		itemQuantity.setAttribute("type", "number", "name", "itemQuantity", "min", "1", "max", "100", "value", sauvegardeProduitLocalStorage[i].quantite)
@@ -59,6 +66,7 @@ function affichagePanier() {
 		suppr.classList.add("deleteItem")
 		suppr.textContent = "Supprimer"
 
+		// Apparition dans le DOM et affichage dans la page produit
 		cart.appendChild(sectionCart);
 		sectionCart.appendChild(sectionCartItems);
 		sectionCartItems.appendChild(art);
