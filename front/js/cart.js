@@ -22,28 +22,59 @@ console.log("Affichage panier")
 // Récupération l'array via le localStorage + création et insersion des éléments dans la page Panier
 function affichagePanier() {
 	let sauvegardeProduitLocalStorage = panier();
+	const cart = document.querySelector(".cart");
 	for (let i = 0; i < sauvegardeProduitLocalStorage.length; i++) {
-		cartItems.innerHTML += `<article class="cart__item" data-id="${sauvegardeProduitLocalStorage[i]._id}" data-color="${sauvegardeProduitLocalStorage[i].colors}">
-                        <div class="cart__item__img">
-                            <img src="${sauvegardeProduitLocalStorage[i].img}" alt="${sauvegardeProduitLocalStorage[i].alt}"/>
-                            </div>
-                            <div class="cart__item__content">
-                            <div class="cart__item__content__description">
-                                <h2>${sauvegardeProduitLocalStorage[i].nom}</h2>
-                                <p>${sauvegardeProduitLocalStorage[i].colors}</p>
-                                <p>${sauvegardeProduitLocalStorage[i].prix}</p>
-                            </div>
-                            <div class="cart__item__content__settings">
-                                <div class="cart__item__content__settings__quantity">
-                                <p>Qté : </p>
-                                <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${sauvegardeProduitLocalStorage[i].quantity}">
-                                </div>
-                                <div class="cart__item__content__settings__delete">
-                                <p class="deleteItem">Supprimer</p>
-                                </div>
-                            </div>
-                            </div>
-                        </article>`;
+		const sectionCart = document.createElement("cart");
+		const sectionCartItems = document.createElement("section");
+		const art = document.createElement("article");
+		const divImage = document.createElement("div");
+		const image = document.createElement("img");
+		const itemContent = document.createElement("div");
+		const contentTitlePrice = document.createElement("div")
+		const nom = document.createElement("h2");
+		const prix = document.createElement("p");
+		const settingContent = document.createElement("div");
+		const settingQuantity = document.createElement("div");
+		const quantity = document.createElement("p");
+		const itemQuantity = document.createElement("input");
+		const settingDelete = document.createElement("div");
+		const suppr = document.createElement("p");
+
+		sectionCart.classList.add("cart")
+		sectionCartItems.classList.add("cart__items");
+		art.classList.add("cart__item");
+		art.setAttribute("data-id", sauvegardeProduitLocalStorage[i]._id);
+		divImage.classList.add("cart__item__img");
+		image.src = sauvegardeProduitLocalStorage.imageUrl;
+		image.alt = sauvegardeProduitLocalStorage.altTxt;
+		itemContent.classList.add("cart__item__content");
+		contentTitlePrice.classList.add("cart__item__content__titlePrice");
+		nom.textContent = sauvegardeProduitLocalStorage[i].nom;
+		prix.textContent = sauvegardeProduitLocalStorage[i].prix;
+		settingContent.classList.add("cart__item__content__settings");
+		settingQuantity.classList.add("cart__item__content__settings__quantity");
+		quantity.textContent = "Qté : ";
+		itemQuantity.classList.add("itemQuantity");
+		itemQuantity.setAttribute("type", "number", "name", "itemQuantity", "min", "1", "max", "100", "value", sauvegardeProduitLocalStorage[i].quantite)
+		settingDelete.classList.add("cart__item__content__settings__delete");
+		suppr.classList.add("deleteItem")
+		suppr.textContent = "Supprimer"
+
+		cart.appendChild(sectionCart);
+		sectionCart.appendChild(sectionCartItems);
+		sectionCartItems.appendChild(art);
+		art.appendChild(divImage);
+		divImage.appendChild(image);
+		image.appendChild(itemContent);
+		itemContent.appendChild(contentTitlePrice);
+		contentTitlePrice.appendChild(nom);
+		nom.appendChild(prix);
+		prix.appendChild(settingContent);
+		settingContent.appendChild(settingQuantity);
+		settingQuantity.appendChild(quantity);
+		quantity.appendChild(itemQuantity);
+		itemQuantity.appendChild(settingDelete);
+		settingDelete.appendChild(suppr);
 	}
 }
 affichagePanier();
