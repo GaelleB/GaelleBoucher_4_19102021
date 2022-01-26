@@ -37,6 +37,7 @@ fetch(productUrl)
 			const btn = document.createElement("button");
 
 			// Ajout de leur class (avec classList.add), d'un texte (avec text.content ou innerText) ou d'un attribut (avec setAttribute)
+			itemsSection.classList.add("item");
 			divImage.classList.add("item__img");
 			img.classList.add("alt");
 			itemContent.classList.add("item__content");
@@ -55,7 +56,7 @@ fetch(productUrl)
 			descrip.innerText = product.description;
 			selectColor.innerText = product.colors;
 			
-			prix.textContent = "Prix : ", 
+			prix.textContent = "Prix : €";
 			descriptionTitle.textContent = "Description :";
 			labelColor.textContent = "Choisir une couleur :";
 			optionColor.textContent = "--SVP, choisissez une couleur --" 
