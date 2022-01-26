@@ -16,7 +16,6 @@ function panier() {
 	}
 }
 panier();
-console.log("Affichage panier")
 
 // Affichage d'un tableau récapitulatif des achats dans la page Panier
 // Récupération l'array via le localStorage + création et insersion des éléments dans la page Panier

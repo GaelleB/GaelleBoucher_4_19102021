@@ -14,6 +14,7 @@ fetch(productUrl)
 		const itemsSection = document.querySelector(".item");
 		
 		// Insersion des détails de chaque produit dans la page Produits
+			// Constantes pour créer des éléments HTML avec la méthode "document.createElement"
 			const art = document.createElement("article");
 			const divImage = document.createElement("div")
 			const img = document.createElement("img");
@@ -35,34 +36,37 @@ fetch(productUrl)
 			const contentBtn = document.createElement("div");
 			const btn = document.createElement("button");
 
-			
+			// Ajout de leur class (avec classList.add), d'un attribut ou de texte
 			divImage.classList.add("item__img");
 			img.classList.add("alt");
-			img.src = `/images/logo.png`;
-			img.src = product.imageUrl;
-			img.alt = product.altTxt;
 			itemContent.classList.add("item__content");
 			contentTitlePrice.classList.add("item__content__titlePrice");
-			nom.innerText = product.name;
-			prix.textContent = "Prix : ", 
-			prix.innerText = product.price;
 			contentDescrip.classList.add("item__content__description");
-			contentDescrip.textContent = "Description :";
 			descriptionTitle.classList.add("item__content__description__title");
-			descrip.innerText = product.description;
 			contentSetting.classList.add("item__content__settings");
 			settingsColor.classList.add("item__content__settings__color");
-			labelColor.textContent = "Choisir une couleur :";
-			selectColor.innerText = product.colors;
-			selectColor.setAttribute("name", "color-select")
-			optionColor.setAttribute("value=", "");
-			optionColor.textContent = "SVP, choisissez une couleur " 
 			settingQuantity.classList.add("item__content__settings__quantity");
-			labelQuantity.textContent = "Nombre d'article(s) (1-100) :";
-			itemQuantity.setAttribute("type", "number", "name", "min", "1", "max", "100", "value", "0");
 			contentBtn.classList.add("item__content__addButton");
+
+			img.src = product.imageUrl;
+			img.alt = product.altTxt;
+			nom.innerText = product.name;
+			prix.innerText = product.price;
+			descrip.innerText = product.description;
+			selectColor.innerText = product.colors;
+			
+			prix.textContent = "Prix : ", 
+			descriptionTitle.textContent = "Description :";
+			labelColor.textContent = "Choisir une couleur :";
+			optionColor.textContent = "--SVP, choisissez une couleur --" 
+			labelQuantity.textContent = "Nombre d'article(s) (1-100) :";
 			btn.textContent = "Ajouter au panier";
 
+			selectColor.setAttribute("name", "color-select")
+			optionColor.setAttribute("value", "");
+			itemQuantity.setAttribute("type", "number", "name", "min", "1", "max", "100", "value", "0");
+
+			// Apparition dans le DOM et affichage dans la page produit
 			itemsSection.appendChild(art);
 			art.append(divImage, img);
 			art.appendChild(itemContent);
@@ -77,7 +81,6 @@ fetch(productUrl)
 			settingQuantity.append(labelQuantity, itemQuantity);
 			itemContent.appendChild(contentBtn);
 			contentBtn.appendChild(btn);
-
 	});
 		
 // Ajouter des produits dans le panier
