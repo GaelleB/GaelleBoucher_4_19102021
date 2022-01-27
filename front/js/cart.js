@@ -21,53 +21,64 @@ panier();
 // Récupération l'array via le localStorage + création et insersion des éléments dans la page Panier
 function affichagePanier() {
 	let sauvegardeProduitLocalStorage = panier();
-	const cart = document.querySelector(".cart");
 	for (let i = 0; i < sauvegardeProduitLocalStorage.length; i++) {
 
-		// Constantes pour créer des éléments HTML avec la méthode "document.createElement"
-		const sectionCartItems = document.createElement("section");
+		// SELECTEUR
+		const sectionCartItems = document.querySelector("#cart__items");
+
+		// GESTION DE LA BALISE HTML <ARTICLE>
 		const art = document.createElement("article");
+		art.classList.add("cart__item");
+		art.setAttribute("data-id", sauvegardeProduitLocalStorage[i].id);
+
+		// GESTION DE L'IMAGE
 		const divImage = document.createElement("div");
+		divImage.classList.add("cart__item__img");
 		const image = document.createElement("img");
+		image.classList.add("alt");
+		image.src = (sauvegardeProduitLocalStorage[i].imageUrl);
+		image.alt = (sauvegardeProduitLocalStorage[i].altTxt);
+
+		// GESTION DE LA DIV "cart__item__content"
 		const itemContent = document.createElement("div");
+		itemContent.classList.add("cart__item__content");
+		
+		// GESTION DU NOM ET DU PRIX
 		const contentTitlePrice = document.createElement("div")
 		const nom = document.createElement("h2");
 		const prix = document.createElement("p");
+		contentTitlePrice.classList.add("cart__item__content__titlePrice");
+		nom.textContent = (sauvegardeProduitLocalStorage[i].nom);
+		prix.textContent = (sauvegardeProduitLocalStorage[i].prix);
+
+		// GESTION DE LA DIV "cart__item__content__settings"
 		const contentSetting = document.createElement("div");
+		contentSetting.classList.add("cart__item__content__settings");
+		
+		// GESTION DE LA QUANTITE
 		const settingQuantity = document.createElement("div");
 		const quantity = document.createElement("p");
 		const itemQuantity = document.createElement("input");
-		const settingDelete = document.createElement("div");
-		const suppr = document.createElement("p");
-
-		// Ajout de leur class (avec classList.add), d'un texte (avec text.content ou innerText) ou d'un attribut (avec setAttribute)
-		art.classList.add("cart__item");
-		divImage.classList.add("cart__item__img");
-		itemContent.classList.add("cart__item__content");
-		contentTitlePrice.classList.add("cart__item__content__titlePrice");
-		contentSetting.classList.add("cart__item__content__settings");
-		settingQuantity.classList.add("cart__item__content__settings__quantity");
+		quantity.textContent = "Qté : ";settingQuantity.classList.add("cart__item__content__settings__quantity");
 		itemQuantity.classList.add("itemQuantity");
-		settingDelete.classList.add("cart__item__content__settings__delete");
-		suppr.classList.add("deleteItem")
-
-		image.src = sauvegardeProduitLocalStorage[i].imageUrl;
-		image.alt = sauvegardeProduitLocalStorage[i].altTxt;
-		nom.textContent = sauvegardeProduitLocalStorage[i].nom;
-		prix.textContent = sauvegardeProduitLocalStorage[i].prix;
-		quantity.textContent = "Qté : ";
-		suppr.textContent = "Supprimer";
-		art.setAttribute("data-id", sauvegardeProduitLocalStorage[i]._id);
 		itemQuantity.setAttribute("type", "number", "name", "itemQuantity", "min", "1", "max", "100", "value", sauvegardeProduitLocalStorage[i].quantite)
 		
-		// Apparition dans le DOM et affichage dans la page panier
-		cart.appendChild(sectionCartItems);
+		// GESTION DU BOUTON SUPPRIMER
+		const settingDelete = document.createElement("div");
+		const suppr = document.createElement("p");
+		settingDelete.classList.add("cart__item__content__settings__delete");
+		suppr.classList.add("deleteItem")
+		suppr.textContent = "Supprimer";
+
+		// Apparition dans le DOM et affichage dans la page panier grâce au "const cart"
 		sectionCartItems.appendChild(art);
-		art.append(divImage, image);
+		art.appendChild(divImage);
+		divImage.appendChild(image);
 		art.appendChild(itemContent);
 		itemContent.append(contentTitlePrice, nom, prix);
-		itemContent.append(contentSetting, settingQuantity, quantity, itemQuantity);
-		itemContent.append(settingDelete, suppr);
+		art.appendChild(contentSetting);
+		contentSetting.append(settingQuantity, quantity, itemQuantity);
+		art.append(settingDelete, suppr);
 	}
 }
 affichagePanier();
