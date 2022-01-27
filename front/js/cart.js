@@ -22,7 +22,6 @@ panier();
 function affichagePanier() {
 	let sauvegardeProduitLocalStorage = panier();
 	for (let i = 0; i < sauvegardeProduitLocalStorage.length; i++) {
-
 		// SELECTEUR
 		const sectionCartItems = document.querySelector("#cart__items");
 
@@ -61,7 +60,7 @@ function affichagePanier() {
 		const itemQuantity = document.createElement("input");
 		quantity.textContent = "Qté : ";settingQuantity.classList.add("cart__item__content__settings__quantity");
 		itemQuantity.classList.add("itemQuantity");
-		itemQuantity.setAttribute("type", "number", "name", "itemQuantity", "min", "1", "max", "100", "value", sauvegardeProduitLocalStorage[i].quantity)
+		itemQuantity.setAttribute("type", "number", "name", "itemQuantity", "min", "1", "max", "100", "value", sauvegardeProduitLocalStorage[i].quantite)
 		
 		// GESTION DU BOUTON SUPPRIMER
 		const settingDelete = document.createElement("div");
@@ -84,8 +83,6 @@ function affichagePanier() {
 		quantity.appendChild(itemQuantity);
 		contentSetting.appendChild(settingDelete);
 		settingDelete.appendChild(suppr);
-
-	
 	}
 }
 affichagePanier();
