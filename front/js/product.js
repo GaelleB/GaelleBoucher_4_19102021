@@ -33,13 +33,13 @@ fetch(productUrl)
 		const select = document.querySelector('select');
 		product.colors.forEach(clr => {
 			console.log(clr);
-			// ici faudra créér un élément option dans la boucle
+			// créér un élément option dans la boucle
 			const selectOption = document.createElement('option');
 			// lui attribuer la valeur de clr (value)
 			selectOption.setAttribute('value', clr);
 			// lui faire un innertext de clr
 			selectOption.innerText = clr;
-			// le faire exister dans le dom grâce au select au dessus
+			// le faire exister dans le dom grâce au "const select"
 			select.appendChild(selectOption);
 		});
 	});
