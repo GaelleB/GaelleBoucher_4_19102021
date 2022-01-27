@@ -75,10 +75,17 @@ function affichagePanier() {
 		art.appendChild(divImage);
 		divImage.appendChild(image);
 		art.appendChild(itemContent);
-		itemContent.append(contentTitlePrice, nom, prix);
-		art.appendChild(contentSetting);
-		contentSetting.append(settingQuantity, quantity, itemQuantity);
-		art.append(settingDelete, suppr);
+		itemContent.appendChild(contentTitlePrice);
+		contentTitlePrice.appendChild(nom);
+		nom.appendChild(prix);
+		itemContent.appendChild(contentSetting);
+		contentSetting.appendChild(settingQuantity);
+		settingQuantity.appendChild(quantity);
+		quantity.appendChild(itemQuantity);
+		contentSetting.appendChild(settingDelete);
+		settingDelete.appendChild(suppr);
+
+	
 	}
 }
 affichagePanier();
@@ -335,7 +342,7 @@ function calculTotal() {
 
 				const numOrder = document.createElement("span");
 
-				numOrder.innerText = orderId;
+				numOrder.innerText = order;
 
 				blockContainer.appendChild(confirmation);
 				confirmation.appendChild(numOrder);
