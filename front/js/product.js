@@ -10,77 +10,38 @@ const productUrl = `http://localhost:3000/api/products/${id}`;
 fetch(productUrl)
 	.then((res) => res.json())
 	.then((product) => {
-		console.log(product)
-		const itemsSection = document.querySelector(".item");
-		
-		// Insersion des détails de chaque produit dans la page Produits
-			// Constantes pour créer des éléments HTML avec la méthode "document.createElement"
-			const art = document.createElement("article");
-			const divImage = document.createElement("div")
-			const img = document.createElement("img");
-			const itemContent = document.createElement("div");
-			const contentTitlePrice = document.createElement("div");
-			const nom = document.createElement("h1");
-			const prix = document.createElement("p");
-			const contentDescrip = document.createElement("div");
-			const descriptionTitle = document.createElement("p")
-			const descrip = document.createElement("p")
-			const contentSetting = document.createElement("div");
-			const settingsColor = document.createElement("div");
-			const labelColor = document.createElement("label");
-			const selectColor = document.createElement("select");
-			const optionColor = document.createElement("option");
-			const settingQuantity = document.createElement("div");
-			const labelQuantity = document.createElement("label");
-			const itemQuantity = document.createElement("input");
-			const contentBtn = document.createElement("div");
-			const btn = document.createElement("button");
+		console.log(product);
 
-			// Ajout de leur class (avec classList.add), d'un texte (avec text.content ou innerText) ou d'un attribut (avec setAttribute)
-			itemsSection.classList.add("item");
-			divImage.classList.add("item__img");
-			img.classList.add("alt");
-			itemContent.classList.add("item__content");
-			contentTitlePrice.classList.add("item__content__titlePrice");
-			contentDescrip.classList.add("item__content__description");
-			descriptionTitle.classList.add("item__content__description__title");
-			contentSetting.classList.add("item__content__settings");
-			settingsColor.classList.add("item__content__settings__color");
-			settingQuantity.classList.add("item__content__settings__quantity");
-			contentBtn.classList.add("item__content__addButton");
+		// SELECTEURS
+		const titleDiv = document.querySelector('#title');
+		const priceDiv = document.querySelector('#price');
+		const descriptionDiv = document.querySelector('#description');
 
-			img.src = product.imageUrl;
-			img.alt = product.altTxt;
-			nom.innerText = product.name;
-			prix.innerText = product.price;
-			descrip.innerText = product.description;
-			selectColor.innerText = product.colors;
-			
-			prix.textContent = "Prix : €";
-			descriptionTitle.textContent = "Description :";
-			labelColor.textContent = "Choisir une couleur :";
-			optionColor.textContent = "--SVP, choisissez une couleur --" 
-			labelQuantity.textContent = "Nombre d'article(s) (1-100) :";
-			btn.textContent = "Ajouter au panier";
-			selectColor.setAttribute("name", "color-select")
-			optionColor.setAttribute("value", "");
-			itemQuantity.setAttribute("type", "number", "name", "min", "1", "max", "100", "value", "0");
+		/// GESTION DE L'IMAGE
+		const imageContainer = document.querySelector('#itemImg');
+		const imgDiv = document.createElement('img');
+		imgDiv.src = product.imageUrl;
+		imgDiv.alt = product.altTxt;
+		imageContainer.appendChild(imgDiv);
 
-			// Apparition dans le DOM et affichage dans la page produit
-			itemsSection.appendChild(art);
-			art.append(divImage, img);
-			art.appendChild(itemContent);
-			itemContent.appendChild(contentTitlePrice);
-			contentTitlePrice.append(nom, prix);
-			itemContent.appendChild(contentDescrip);
-			contentDescrip.append(descriptionTitle, descrip);
-			itemContent.appendChild(contentSetting);
-			contentSetting.appendChild(settingsColor);
-			settingsColor.append(labelColor, selectColor, optionColor);
-			contentSetting.appendChild(settingQuantity);
-			settingQuantity.append(labelQuantity, itemQuantity);
-			itemContent.appendChild(contentBtn);
-			contentBtn.appendChild(btn);
+		// AFFICHAGE DES INFOS TEXTUELLES
+		titleDiv.innerText = product.name;
+		priceDiv.innerText = product.price;
+		descriptionDiv.innerText = product.description;
+
+		// GESTION DU MENU DÉROULANT
+		const select = document.querySelector('select');
+		product.colors.forEach(clr => {
+			console.log(clr);
+			// ici faudra créér un élément option dans la boucle
+			const selectOption = document.createElement('option');
+			// lui attribuer la valeur de clr (value)
+			selectOption.setAttribute('value', clr);
+			// lui faire un innertext de clr
+			selectOption.innerText = clr;
+			// le faire exister dans le dom grâce au select au dessus
+			select.appendChild(selectOption);
+		});
 	});
 		
 // Ajouter des produits dans le panier
