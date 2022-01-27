@@ -36,8 +36,8 @@ function affichagePanier() {
 		divImage.classList.add("cart__item__img");
 		const image = document.createElement("img");
 		image.classList.add("alt");
-		image.src = (sauvegardeProduitLocalStorage[i].imageUrl);
-		image.alt = (sauvegardeProduitLocalStorage[i].altTxt);
+		image.src = (sauvegardeProduitLocalStorage[i].img);
+		image.alt = (sauvegardeProduitLocalStorage[i].alt);
 
 		// GESTION DE LA DIV "cart__item__content"
 		const itemContent = document.createElement("div");
@@ -61,7 +61,7 @@ function affichagePanier() {
 		const itemQuantity = document.createElement("input");
 		quantity.textContent = "Qté : ";settingQuantity.classList.add("cart__item__content__settings__quantity");
 		itemQuantity.classList.add("itemQuantity");
-		itemQuantity.setAttribute("type", "number", "name", "itemQuantity", "min", "1", "max", "100", "value", sauvegardeProduitLocalStorage[i].quantite)
+		itemQuantity.setAttribute("type", "number", "name", "itemQuantity", "min", "1", "max", "100", "value", sauvegardeProduitLocalStorage[i].quantity)
 		
 		// GESTION DU BOUTON SUPPRIMER
 		const settingDelete = document.createElement("div");
@@ -326,11 +326,19 @@ function calculTotal() {
 				}
 			})
 			.then(order => {
+				console.log(order);
 				let orderId = order.orderId
 				window.location = `${window.location.origin}/front/html/confirmation.html?id=${orderId}`;
-				let ordre = `<span<!-- 65431343444684674 --></span>`
-				const image = document.getElementById("#orderId");
-				image.innerText = ordre;
+				
+				const blockContainer = document.querySelector(".limitedWidthBlockContainer");
+				const confirmation = document.querySelector(".confirmation");
+
+				const numOrder = document.createElement("span");
+
+				numOrder.innerText = orderId;
+
+				blockContainer.appendChild(confirmation);
+				confirmation.appendChild(numOrder);
 			});
 	});
 	})
