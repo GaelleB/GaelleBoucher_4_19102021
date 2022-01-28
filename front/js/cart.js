@@ -22,6 +22,7 @@ panier();
 function affichagePanier() {
 	let sauvegardeProduitLocalStorage = panier();
 	for (let i = 0; i < sauvegardeProduitLocalStorage.length; i++) {
+
 		// SELECTEUR
 		const sectionCartItems = document.querySelector("#cart__items");
 
@@ -60,7 +61,7 @@ function affichagePanier() {
 		const itemQuantity = document.createElement("input");
 		quantity.textContent = "Qté : ";settingQuantity.classList.add("cart__item__content__settings__quantity");
 		itemQuantity.classList.add("itemQuantity");
-		itemQuantity.setAttribute("type", "number", "name", "itemQuantity", "min", "1", "max", "100", "value", sauvegardeProduitLocalStorage[i].quantite)
+		itemQuantity.setAttribute("type", "number", "name", "itemQuantity", "min", "1", "max", "100", "value", sauvegardeProduitLocalStorage[i].quantity)
 		
 		// GESTION DU BOUTON SUPPRIMER
 		const settingDelete = document.createElement("div");
@@ -333,16 +334,9 @@ function calculTotal() {
 				console.log(order);
 				let orderId = order.orderId
 				window.location = `${window.location.origin}/front/html/confirmation.html?id=${orderId}`;
-				
-				const blockContainer = document.querySelector(".limitedWidthBlockContainer");
-				const confirmation = document.querySelector(".confirmation");
-
-				const numOrder = document.createElement("span");
-
-				numOrder.innerText = order;
-
-				blockContainer.appendChild(confirmation);
-				confirmation.appendChild(numOrder);
+				return new URLSearchParams(window.location.search).get("id");
+				const confirm = document.querySelector("#orderId");
+				confirm.innerText = id;
 			});
 	});
 	})
