@@ -1,17 +1,23 @@
-// Faire le lien entre un produit de la page d’accueil et la page Produit avec la notion "URLSearchParams"
+// FAIRE LE LIEN ENTRE UN PRODUIT DE LA PAGE D'ACCUEIL ET LA PAGE PRODUIT
+
+// Utilisation de la notion "URLSearchParams" pour savoir lequel des différents produits de l'API à afficher
 function getArticleId() {
-	// Récupérer l’id du produit à afficher
+	// RECUPERATION DE L'ID DU PRODUIT SELECTIONNE SUR LA PAGE D'ACCUEIL
     return new URLSearchParams(window.location.search).get("id");
 }
 const id = getArticleId()
 
-// Insérer un produit et ses détails dans la page Produit dans le DOM en interrogeant l'API
+// INSERER UN PRODUIT ET SES DETAILS DANS LA PAGE PRODUIT 
+
+// Interrogation de l'API pour récupérer les détails du produit
 const productUrl = `http://localhost:3000/api/products/${id}`;
 fetch(productUrl)
 	.then((res) => res.json())
 	.then((product) => {
+		// Récupération des détails de chaque produit
 		console.log(product);
 
+		// Insersion d'un produit et de ses détails dans la page produit
 		// SELECTEURS
 		const titleDiv = document.querySelector('#title');
 		const priceDiv = document.querySelector('#price');
@@ -44,7 +50,7 @@ fetch(productUrl)
 		});
 	});
 		
-// Ajouter des produits dans le panier
+// AJOUTER DES PRODUITS DANS LE PANIER
 let creationProduit = () => {
 	let quantite = document.querySelector('#quantity')
 	let name = document.querySelector("#title").innerText
@@ -74,14 +80,13 @@ let creationProduit = () => {
 	let modifProductLocalStorage = (index) => {
 		sauvegardeProduitLocalStorage[index].quantity = optionProduct.quantity
 		localStorage.setItem('product', JSON.stringify(sauvegardeProduitLocalStorage))
-		console.log('Modification de la quantité')
 	}
 		// Si le produit n'est pas présent dans le panier, ajout dans le produit
 		if (!sauvegardeProduitLocalStorage) {
 			sauvegardeProduitLocalStorage = []
 			ajoutProduitLocalStorage()
 		}
-				else {
+			else {
 			let index = sauvegardeProduitLocalStorage.findIndex(
 				(e) => e.colors === optionProduct.colors && e._id === optionProduct._id
 			)
@@ -92,13 +97,13 @@ let creationProduit = () => {
 			// Sinon on ajoute le produit
 			else {
 				ajoutProduitLocalStorage()
-				console.log('Produit ajouté au panier dans le local storage')
 			}
 		}
 }
 
+// Bouton "Ajouter au panier"
 let envoiePanier = document.querySelector('#addToCart')
 envoiePanier.addEventListener('click', (event) => {
 	creationProduit()
-	console.log("bouton Ajouter au panier")
+	console.log("Ajouter au panier")
 })
