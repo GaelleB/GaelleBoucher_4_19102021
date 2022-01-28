@@ -1,4 +1,4 @@
-// Insérer les produits dans la page d'accueil
+// INSERER LES PRODUITS DANS LA PAGE D'ACCUEIL
 
 // Requête de l'API pour lui demander l'ensemble des produits
 const allProductsURL = "http://localhost:3000/api/products";
@@ -6,10 +6,12 @@ fetch(allProductsURL)
 // Récupération de la réponse émise
     .then((res) => res.json())
     .then((res) => {
+        // Récupération de l'ensemble des produits
         console.log(res)
         // Parcours de la réponse
         const itemsSection = document.querySelector("#items");
         res.forEach((el) => {
+            // Récupèration de l'ID de chaque produit
             console.log(el._id)
 
             // Insersion de chaque produit dans la page d'accueil
