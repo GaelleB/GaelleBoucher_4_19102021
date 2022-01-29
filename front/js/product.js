@@ -59,7 +59,6 @@ let creationProduit = () => {
 	let prix = document.querySelector("#price").innerText
 	let image = document.querySelector("#itemImg img")
 
-// Composition de l'array
 	let optionProduct = {
 		_id: id,
 		quantity: Number(quantite.value),
@@ -92,7 +91,7 @@ let creationProduit = () => {
 			let index = sauvegardeProduitLocalStorage.findIndex(
 				(e) => e.colors === optionProduct.colors && e._id === optionProduct._id
 			)
-			// Si le produit existe déjà, on incrémente la quantité correspondant dans le panier
+			// Si le produit existe déjà, on incrémente la quantité correspondante dans le panier
 			if (index !== -1) {
 				modifProductLocalStorage(index)
 			}
