@@ -2,7 +2,7 @@
 
 // Utilisation de la notion "URLSearchParams" pour savoir lequel des différents produits de l'API à afficher
 function getArticleId() {
-	// RECUPERATION DE L'ID DU PRODUIT SELECTIONNE SUR LA PAGE D'ACCUEIL
+	// RECUPERATION DE L'ID DU PRODUIT
     return new URLSearchParams(window.location.search).get("id");
 }
 const id = getArticleId()
@@ -18,24 +18,24 @@ fetch(productUrl)
 		console.log(product);
 
 		// Insersion d'un produit et de ses détails dans la page produit
-		// SELECTEURS
+		// Sélecteurs
 		const titleDiv = document.querySelector('#title');
 		const priceDiv = document.querySelector('#price');
 		const descriptionDiv = document.querySelector('#description');
 
-		/// GESTION DE L'IMAGE
+		/// Gestion de l'image
 		const imageContainer = document.querySelector('#itemImg');
 		const imgDiv = document.createElement('img');
 		imgDiv.src = product.imageUrl;
 		imgDiv.alt = product.altTxt;
 		imageContainer.appendChild(imgDiv);
 
-		// AFFICHAGE DES INFOS TEXTUELLES
+		// Affichage des informations textuelles
 		titleDiv.innerText = product.name;
 		priceDiv.innerText = product.price;
 		descriptionDiv.innerText = product.description;
 
-		// GESTION DU MENU DÉROULANT
+		// Gestion du menu déroulant des couleurs
 		const select = document.querySelector('select');
 		product.colors.forEach(clr => {
 			console.log(clr);
@@ -45,12 +45,14 @@ fetch(productUrl)
 			selectOption.setAttribute('value', clr);
 			// lui faire un innertext de clr
 			selectOption.innerText = clr;
-			// le faire exister dans le dom grâce au "const select"
+			// le faire exister dans le dom
 			select.appendChild(selectOption);
 		});
 	});
 		
 // AJOUTER DES PRODUITS DANS LE PANIER
+
+// Création d'un objet produit
 let creationProduit = () => {
 	let quantite = document.querySelector('#quantity')
 	let name = document.querySelector("#title").innerText
@@ -81,7 +83,7 @@ let creationProduit = () => {
 		sauvegardeProduitLocalStorage[index].quantity = optionProduct.quantity
 		localStorage.setItem('product', JSON.stringify(sauvegardeProduitLocalStorage))
 	}
-		// Si le produit n'est pas présent dans le panier, ajout dans le produit
+		// Si le produit n'est pas présent dans le panier, l'ajouter dans le panier
 		if (!sauvegardeProduitLocalStorage) {
 			sauvegardeProduitLocalStorage = []
 			ajoutProduitLocalStorage()
@@ -90,7 +92,7 @@ let creationProduit = () => {
 			let index = sauvegardeProduitLocalStorage.findIndex(
 				(e) => e.colors === optionProduct.colors && e._id === optionProduct._id
 			)
-			// Si le produit existe déjà, on incrémente la quantité correspondant dans l'array
+			// Si le produit existe déjà, on incrémente la quantité correspondant dans le panier
 			if (index !== -1) {
 				modifProductLocalStorage(index)
 			}

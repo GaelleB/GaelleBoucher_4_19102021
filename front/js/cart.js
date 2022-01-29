@@ -1,9 +1,9 @@
-// Sélection de la balise <article>
-let cartItems = document.getElementById("cart__items");
+// AFFICHER UN TABLEAU RECAPITULATIF DES ACHATS DANS LA PAGE PANIER
 
-// Récupère les données du localStorage
+// Récupère le panier via le localStorage
 let sauvegardeProduitLocalStorage = JSON.parse(localStorage.getItem('product'));
 let sauvegardeContactLocalStorage = JSON.parse(localStorage.getItem('contact'));
+
 
 function panier() {
 	let check = localStorage.getItem('product');
@@ -17,21 +17,21 @@ function panier() {
 }
 panier();
 
-// Affichage d'un tableau récapitulatif des achats dans la page Panier
-// Récupération l'array via le localStorage + création et insersion des éléments dans la page Panier
+
+// Parcours du panier + création et insersion des éléments dans la page Panier
 function affichagePanier() {
 	let sauvegardeProduitLocalStorage = panier();
 	for (let i = 0; i < sauvegardeProduitLocalStorage.length; i++) {
 
-		// SELECTEUR
+		// Sélecteur
 		const sectionCartItems = document.querySelector("#cart__items");
 
-		// GESTION DE LA BALISE HTML <ARTICLE>
+		// Gestion de la balise HTML <article>
 		const art = document.createElement("article");
 		art.classList.add("cart__item");
 		art.setAttribute("data-id", sauvegardeProduitLocalStorage[i].id);
 
-		// GESTION DE L'IMAGE
+		// Gestion de l'image
 		const divImage = document.createElement("div");
 		divImage.classList.add("cart__item__img");
 		const image = document.createElement("img");
@@ -39,11 +39,11 @@ function affichagePanier() {
 		image.src = (sauvegardeProduitLocalStorage[i].img);
 		image.alt = (sauvegardeProduitLocalStorage[i].alt);
 
-		// GESTION DE LA DIV "cart__item__content"
+		// Gestion du div "cart__item__content"
 		const itemContent = document.createElement("div");
 		itemContent.classList.add("cart__item__content");
 		
-		// GESTION DU NOM ET DU PRIX
+		// Gestion du nom et du prix
 		const contentTitlePrice = document.createElement("div")
 		const nom = document.createElement("h2");
 		const prix = document.createElement("p");
@@ -51,26 +51,31 @@ function affichagePanier() {
 		nom.textContent = (sauvegardeProduitLocalStorage[i].nom);
 		prix.textContent = (sauvegardeProduitLocalStorage[i].prix);
 
-		// GESTION DE LA DIV "cart__item__content__settings"
+		// Gestion du div "cart__item__content__settings"
 		const contentSetting = document.createElement("div");
 		contentSetting.classList.add("cart__item__content__settings");
 		
-		// GESTION DE LA QUANTITE
+		// Gestion de la quantité
 		const settingQuantity = document.createElement("div");
 		const quantity = document.createElement("p");
-		const itemQuantity = document.createElement("input");
-		quantity.textContent = "Qté : ";settingQuantity.classList.add("cart__item__content__settings__quantity");
-		itemQuantity.classList.add("itemQuantity");
-		itemQuantity.setAttribute("type", "number", "name", "itemQuantity", "min", "1", "max", "100", "value", sauvegardeProduitLocalStorage[i].quantity)
+		const input = document.createElement("input");
+		quantity.textContent = "Qté : ";
+		settingQuantity.classList.add("cart__item__content__settings__quantity");
+		input.classList.add("itemQuantity");
+		input.setAttribute("type", "number");
+		input.setAttribute("name", "itemQuantity");
+		input.setAttribute("min", "1")
+		input.setAttribute("max", "100")
+		input.setAttribute("value", sauvegardeProduitLocalStorage[i].quantity)
 		
-		// GESTION DU BOUTON SUPPRIMER
+		// Gestion du bouton supprimer
 		const settingDelete = document.createElement("div");
 		const suppr = document.createElement("p");
 		settingDelete.classList.add("cart__item__content__settings__delete");
 		suppr.classList.add("deleteItem")
 		suppr.textContent = "Supprimer";
 
-		// Apparition dans le DOM et affichage dans la page panier grâce au "const cart"
+		// Apparition dans le DOM et affichage dans la page panier
 		sectionCartItems.appendChild(art);
 		art.appendChild(divImage);
 		divImage.appendChild(image);
@@ -81,14 +86,15 @@ function affichagePanier() {
 		itemContent.appendChild(contentSetting);
 		contentSetting.appendChild(settingQuantity);
 		settingQuantity.appendChild(quantity);
-		quantity.appendChild(itemQuantity);
+		quantity.appendChild(input);
 		contentSetting.appendChild(settingDelete);
 		settingDelete.appendChild(suppr);
 	}
 }
 affichagePanier();
 
-// Gérer la modification et la suppression de produits dans la page Panier
+// GERER LA MODIFICATION ET LA SUPPRESSION DE PRODUITS DANS LA PAGE PANIER
+
 // Modification de la quantité d'un produit
 let modifProduit = () => {
 	let itemQuantity = [...document.getElementsByClassName('itemQuantity'),
@@ -128,6 +134,7 @@ let suppProduit = () => {
 };
 suppProduit();
 
+// Calcul total
 function calculTotal() {
 	let totalQuantity = document.querySelector("#totalQuantity");
 	let totalPrice = document.querySelector("#totalPrice");
@@ -145,21 +152,7 @@ function calculTotal() {
 		totalQuantity.innerText = allQuantite;
 		totalPrice.innerHTML = total;
 
-	// Quantité totale à côté du panier (navbar)
-	let cart = () => {
-		let panier = document
-			.getElementsByTagName('nav')[0]
-			.getElementsByTagName('li')[1];
-		let sauvegardeProduitLocalStorage = JSON.parse(localStorage.getItem('product'));
-		let total = 0;
-		for (let produit of sauvegardeProduitLocalStorage) {
-			total += parseInt(produit.quantity) * produit.prix;
-		}
-		panier.innerHTML = `Panier <span id="test" style='color: red;'>${total}</span>`;
-	};
-	cart();
-
-	// Passer la commande (avec le formulaire)
+	// PASSER LA COMMANDE
 	addEventListener('change', () => {
 		function firstName() {
 			let firstName = document.getElementById('firstName').value;
@@ -260,12 +253,13 @@ function calculTotal() {
 		}
 		mail();
 
-		// Objet vers localStorage
+		// Bouton commander pour envoyer la commande dans localStorage
 		let sendContact = document.querySelector('#order');
 		sendContact.addEventListener('click', (e) => {
+			console.log("bouton commander")
 			e.preventDefault();
 
-			// Création de l'objet contact | Les valeurs sont vérifiés par les fonctions
+			// Constitution d'un objet contact (à partir des données du formulaire)
 			let contact = {
 				firstName: firstName(),
 				lastName: lastName(),
@@ -293,7 +287,7 @@ function calculTotal() {
 				);
 			};
 
-			// Si l'objet a une key non défini, ne pas exécuter le code
+			// Si l'objet a une key non définie, ne pas exécuter le code
 			if (
 				contact.firstName == undefined ||
 				contact.lastName == undefined ||
@@ -303,7 +297,7 @@ function calculTotal() {
 			) {
 				return false;
 			} else {
-				// SI pas de contact dans le localStorage, crée le tableau
+				// SI pas de contact dans le localStorage, crée un tableau
 				if (!sauvegardeContactLocalStorage) {
 					ajoutContactLocalStorage();
 				}
@@ -313,9 +307,11 @@ function calculTotal() {
 				}
 			}
 
+			// Constitution d'un tableau de produits
 			const products = []
 			product.forEach(kanap => products.push(kanap._id));
 
+			// Requête POST sur l'API
 			fetch('http://localhost:3000/api/products/order', {
 				method: 'POST',
 				body: JSON.stringify({contact, products}),
@@ -330,15 +326,13 @@ function calculTotal() {
 					console.log('Commande échouée');
 				}
 			})
-			.then(order => {
+			.then(order => { 
 				console.log(order);
 				let orderId = order.orderId
+				// L'utilisateur sera redirigé vers la page Confirmation en passant l'id de commande dans l'URL pour afficher le numéro de commande
 				window.location = `${window.location.origin}/front/html/confirmation.html?id=${orderId}`;
-				return new URLSearchParams(window.location.search).get("id");
-				const confirm = document.querySelector("#orderId");
-				confirm.innerText = id;
 			});
-	});
+		});
 	})
 }
 calculTotal();
